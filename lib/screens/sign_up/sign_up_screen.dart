@@ -7,9 +7,8 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
+    return Scaffold(
+      body: const SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: Sizes.size40,
@@ -35,6 +34,24 @@ class SignUpScreen extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.grey.shade100,
+        elevation: 5,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Already have an account?'),
+            Gaps.h5,
+            Text(
+              'Login',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );
