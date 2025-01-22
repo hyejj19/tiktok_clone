@@ -8,11 +8,11 @@ import 'package:tiktok_clone/features/auth/widgets/auth_button.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  void onSignupTap(BuildContext context) {
+  void _onSignupTap(BuildContext context) {
     Navigator.of(context).pop();
   }
 
-  void onEmailTap(BuildContext context) {
+  void _onEmailTap(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => EmailScreen(),
@@ -51,13 +51,13 @@ class LoginScreen extends StatelessWidget {
               AuthButton(
                 icon: const FaIcon(FontAwesomeIcons.solidUser),
                 text: 'Use email & password',
-                onTapFunction: onEmailTap,
+                onTapFunction: _onEmailTap,
               ),
               Gaps.v16,
               AuthButton(
                 icon: const FaIcon(FontAwesomeIcons.apple),
                 text: 'Continue with Apple',
-                onTapFunction: onEmailTap,
+                onTapFunction: _onEmailTap,
               )
             ],
           ),
@@ -72,7 +72,7 @@ class LoginScreen extends StatelessWidget {
             Text("Don't have an account?"),
             Gaps.h5,
             GestureDetector(
-              onTap: () => onSignupTap(context),
+              onTap: () => _onSignupTap(context),
               child: Text(
                 'Sign up',
                 style: TextStyle(
