@@ -2,8 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 
-class UsernameScreen extends StatelessWidget {
-  const UsernameScreen({super.key});
+class UsernameScreen extends StatefulWidget {
+  const UsernameScreen({
+    super.key,
+  });
+
+  @override
+  State<UsernameScreen> createState() => _UsernameScreenState();
+}
+
+class _UsernameScreenState extends State<UsernameScreen> {
+  final TextEditingController _usernameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _usernameController.addListener(
+      () => print(_usernameController.text),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +59,7 @@ class UsernameScreen extends StatelessWidget {
             ),
             Gaps.h16,
             TextField(
+              controller: _usernameController,
               decoration: InputDecoration(
                 hintText: 'Username',
                 enabledBorder: UnderlineInputBorder(
@@ -56,6 +75,24 @@ class UsernameScreen extends StatelessWidget {
               ),
               cursorColor: Theme.of(context).primaryColor,
             ),
+            Gaps.h16,
+            FractionallySizedBox(
+              widthFactor: 1,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: Sizes.size16),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: Text(
+                  'Next',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
