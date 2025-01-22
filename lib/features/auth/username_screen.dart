@@ -84,9 +84,15 @@ class _UsernameScreenState extends State<UsernameScreen> {
             Gaps.v28,
             FractionallySizedBox(
               widthFactor: 1,
-              child: Container(
+              child: AnimatedContainer(
+                duration: Duration(
+                  milliseconds: 200,
+                ),
                 padding: EdgeInsets.symmetric(vertical: Sizes.size16),
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    Sizes.size5,
+                  ),
                   color: username.isEmpty
                       ? Colors.grey.shade400
                       : Theme.of(context).primaryColor,
