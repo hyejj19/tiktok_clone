@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/auth/widgets/form_button.dart';
 
 class UsernameScreen extends StatefulWidget {
   const UsernameScreen({
@@ -14,7 +15,7 @@ class UsernameScreen extends StatefulWidget {
 class _UsernameScreenState extends State<UsernameScreen> {
   final TextEditingController _usernameController = TextEditingController();
 
-  String username = '';
+  String _username = '';
 
   @override
   void initState() {
@@ -23,9 +24,25 @@ class _UsernameScreenState extends State<UsernameScreen> {
     _usernameController.addListener(
       () {
         setState(() {
-          username = _usernameController.text;
+          _username = _usernameController.text;
         });
       },
+    );
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    super.dispose();
+  }
+
+  void onTapNextButton() {
+    if (_username.isEmpty) return;
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => UsernameScreen(),
+      ),
     );
   }
 
@@ -82,36 +99,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
               cursorColor: Theme.of(context).primaryColor,
             ),
             Gaps.v28,
-            FractionallySizedBox(
-              widthFactor: 1,
-              child: AnimatedContainer(
-                duration: Duration(
-                  milliseconds: 200,
-                ),
-                padding: EdgeInsets.symmetric(vertical: Sizes.size16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    Sizes.size5,
-                  ),
-                  color: username.isEmpty
-                      ? Colors.grey.shade400
-                      : Theme.of(context).primaryColor,
-                ),
-                child: AnimatedDefaultTextStyle(
-                  duration: Duration(
-                    milliseconds: 200,
-                  ),
-                  style: TextStyle(
-                    color:
-                        username.isEmpty ? Colors.grey.shade800 : Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  child: Text(
-                    'Next',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
+            FormButton(
+              disabled: _username.isEmpty,
+              onTapFunction: onTapNextButton,
             )
           ],
         ),
