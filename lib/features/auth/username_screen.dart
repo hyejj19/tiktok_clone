@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/auth/email_screen.dart';
 import 'package:tiktok_clone/features/auth/widgets/form_button.dart';
 
 class UsernameScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
 
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => UsernameScreen(),
+        builder: (context) => EmailScreen(),
       ),
     );
   }

@@ -13,18 +13,18 @@ class EmailScreen extends StatefulWidget {
 }
 
 class _EmailScreenState extends State<EmailScreen> {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  String _username = '';
+  String _email = '';
 
   @override
   void initState() {
     super.initState();
 
-    _usernameController.addListener(
+    _emailController.addListener(
       () {
         setState(() {
-          _username = _usernameController.text;
+          _email = _emailController.text;
         });
       },
     );
@@ -32,8 +32,19 @@ class _EmailScreenState extends State<EmailScreen> {
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _emailController.dispose();
     super.dispose();
+  }
+
+  String? _isEmailValid() {
+    if (_email.isEmpty) return null;
+    final regExp = RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+
+    if (!regExp.hasMatch(_email)) {
+      return 'Email is not valid.';
+    }
+    return null;
   }
 
   @override
@@ -65,9 +76,12 @@ class _EmailScreenState extends State<EmailScreen> {
             Gaps.v8,
             Gaps.v32,
             TextField(
-              controller: _usernameController,
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              autocorrect: false,
               decoration: InputDecoration(
                 hintText: 'Email',
+                errorText: _isEmailValid(),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.grey.shade400,
@@ -83,7 +97,7 @@ class _EmailScreenState extends State<EmailScreen> {
             ),
             Gaps.v28,
             FormButton(
-              disabled: _username.isEmpty,
+              disabled: _email.isEmpty,
               onTapFunction: () => {},
             )
           ],
