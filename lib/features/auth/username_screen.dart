@@ -97,12 +97,18 @@ class _UsernameScreenState extends State<UsernameScreen> {
                       ? Colors.grey.shade400
                       : Theme.of(context).primaryColor,
                 ),
-                child: Text(
-                  'Next',
-                  textAlign: TextAlign.center,
+                child: AnimatedDefaultTextStyle(
+                  duration: Duration(
+                    milliseconds: 200,
+                  ),
                   style: TextStyle(
-                    color: Colors.white,
+                    color:
+                        username.isEmpty ? Colors.grey.shade800 : Colors.white,
                     fontWeight: FontWeight.w600,
+                  ),
+                  child: Text(
+                    'Next',
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
