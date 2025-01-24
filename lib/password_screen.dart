@@ -169,22 +169,6 @@ class _PasswordScreenState extends State<PasswordScreen> {
                   ),
                 ],
               ),
-              Gaps.v4,
-              Row(
-                children: [
-                  FaIcon(
-                    FontAwesomeIcons.circleCheck,
-                    size: Sizes.size16 + Sizes.size2,
-                    color: _isPasswordValid()
-                        ? Colors.green
-                        : Colors.grey.shade400,
-                  ),
-                  Gaps.h10,
-                  Text(
-                    'Letters, numbers, and special characters',
-                  ),
-                ],
-              ),
               Gaps.v28,
               GestureDetector(
                 onTap: _onSubmit,
