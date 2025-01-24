@@ -1,31 +1,34 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/auth/widgets/form_button.dart';
-import 'package:tiktok_clone/password_screen.dart';
 
-class EmailScreen extends StatefulWidget {
-  const EmailScreen({
+class PasswordScreen extends StatefulWidget {
+  const PasswordScreen({
     super.key,
   });
 
   @override
-  State<EmailScreen> createState() => _EmailScreenState();
+  State<PasswordScreen> createState() => _PasswordScreenState();
 }
 
-class _EmailScreenState extends State<EmailScreen> {
-  final TextEditingController _emailController = TextEditingController();
+class _PasswordScreenState extends State<PasswordScreen> {
+  final TextEditingController _passwordController = TextEditingController();
 
-  String _email = '';
+  String _password = '';
+  bool _isObsecureText = true;
 
   @override
   void initState() {
     super.initState();
 
-    _emailController.addListener(
+    _passwordController.addListener(
       () {
         setState(() {
-          _email = _emailController.text;
+          _password = _passwordController.text;
         });
       },
     );
@@ -33,19 +36,12 @@ class _EmailScreenState extends State<EmailScreen> {
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
-  String? _isEmailValid() {
-    if (_email.isEmpty) return null;
-    final regExp = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-
-    if (!regExp.hasMatch(_email)) {
-      return 'Email is not valid.';
-    }
-    return null;
+  bool _isPasswordValid() {
+    return _password.isNotEmpty && _password.length >= 8;
   }
 
   void _onScaffoldTap() {
@@ -53,13 +49,23 @@ class _EmailScreenState extends State<EmailScreen> {
   }
 
   void _onSubmit() {
-    if (_email.isEmpty || _isEmailValid() != null) return;
+    if (_password.isEmpty || !_isPasswordValid()) return;
 
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => PasswordScreen(),
       ),
     );
+  }
+
+  void _onClearTap() {
+    _passwordController.clear();
+  }
+
+  void _onObsecureTap() {
+    setState(() {
+      _isObsecureText = !_isObsecureText;
+    });
   }
 
   @override
@@ -84,7 +90,7 @@ class _EmailScreenState extends State<EmailScreen> {
             children: [
               Gaps.v40,
               Text(
-                'Your email?',
+                'Password?',
                 style: TextStyle(
                   fontSize: Sizes.size20,
                   fontWeight: FontWeight.w600,
@@ -93,13 +99,12 @@ class _EmailScreenState extends State<EmailScreen> {
               Gaps.v8,
               Gaps.v32,
               TextField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
+                controller: _passwordController,
                 autocorrect: false,
                 onEditingComplete: _onSubmit,
+                obscureText: _isObsecureText,
                 decoration: InputDecoration(
-                  hintText: 'Email',
-                  errorText: _isEmailValid(),
+                  hintText: 'Make it strong!',
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.grey.shade400,
@@ -110,6 +115,34 @@ class _EmailScreenState extends State<EmailScreen> {
                       color: Colors.grey.shade400,
                     ),
                   ),
+                  suffixIcon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      GestureDetector(
+                        onTap: _onClearTap,
+                        child: FaIcon(
+                          FontAwesomeIcons.solidCircleXmark,
+                          color: Colors.grey.shade400,
+                          size: Sizes.size20,
+                        ),
+                      ),
+                      Gaps.h14,
+                      GestureDetector(
+                        onTap: _onObsecureTap,
+                        child: _isObsecureText
+                            ? FaIcon(
+                                FontAwesomeIcons.eyeSlash,
+                                color: Colors.grey.shade400,
+                                size: Sizes.size20,
+                              )
+                            : FaIcon(
+                                FontAwesomeIcons.eye,
+                                color: Colors.grey.shade400,
+                                size: Sizes.size20,
+                              ),
+                      )
+                    ],
+                  ),
                 ),
                 cursorColor: Theme.of(context).primaryColor,
               ),
@@ -117,7 +150,7 @@ class _EmailScreenState extends State<EmailScreen> {
               GestureDetector(
                 onTap: _onSubmit,
                 child: FormButton(
-                  disabled: _email.isEmpty || _isEmailValid() != null,
+                  disabled: !_isPasswordValid(),
                   onTapFunction: () => {},
                 ),
               )
