@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/auth/widgets/form_button.dart';
-import 'package:tiktok_clone/password_screen.dart';
+import 'package:tiktok_clone/features/auth/password_screen.dart';
 
 class EmailScreen extends StatefulWidget {
   const EmailScreen({
@@ -118,7 +118,7 @@ class _EmailScreenState extends State<EmailScreen> {
                 onTap: _onSubmit,
                 child: FormButton(
                   disabled: _email.isEmpty || _isEmailValid() != null,
-                  onTapFunction: () => {},
+                  onTapFunction: _onSubmit,
                 ),
               )
             ],

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/auth/birtday_screen.dart';
 import 'package:tiktok_clone/features/auth/widgets/form_button.dart';
 
 class PasswordScreen extends StatefulWidget {
@@ -66,6 +67,16 @@ class _PasswordScreenState extends State<PasswordScreen> {
     setState(() {
       _isObsecureText = !_isObsecureText;
     });
+  }
+
+  void onTapNextButton() {
+    if (_password.isEmpty) return;
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => BirtdayScreen(),
+      ),
+    );
   }
 
   @override
@@ -174,7 +185,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 onTap: _onSubmit,
                 child: FormButton(
                   disabled: !_isPasswordValid(),
-                  onTapFunction: () => {},
+                  onTapFunction: onTapNextButton,
                 ),
               )
             ],
