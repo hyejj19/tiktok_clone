@@ -28,7 +28,19 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
             ),
           ),
-        )
+        ),
+        SliverFixedExtentList(
+            delegate: SliverChildBuilderDelegate(
+              childCount: 50,
+              (context, index) => Container(
+                alignment: Alignment.center,
+                color: Colors.amber[100 * (index % 9)],
+                child: Text(
+                  "item_$index",
+                ),
+              ),
+            ),
+            itemExtent: 100)
       ],
     );
   }
