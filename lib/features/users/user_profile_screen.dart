@@ -10,6 +10,26 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView();
+    return CustomScrollView(
+      slivers: [
+        SliverAppBar(
+          backgroundColor: Colors.teal,
+          collapsedHeight: 80,
+          expandedHeight: 200,
+          flexibleSpace: FlexibleSpaceBar(
+            background: Image.asset(
+              "assets/images/placeholder.jpg",
+              fit: BoxFit.cover,
+            ),
+            title: Text(
+              'Hello',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 }
