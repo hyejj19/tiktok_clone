@@ -17,7 +17,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   void _onGearPressed(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const SettingScreen()),
+      MaterialPageRoute(builder: (context) => const SettingsScreen()),
     );
   }
 
