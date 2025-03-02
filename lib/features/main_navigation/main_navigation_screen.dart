@@ -58,7 +58,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           Offstage(
             offstage: _selectedIndex != 3,
             child: Scaffold(
-              body: UserProfileScreen(username: 'Eva'),
+              body: UserProfileScreen(
+                username: 'Eva',
+                tab: 'likes',
+              ),
             ),
           )
         ],

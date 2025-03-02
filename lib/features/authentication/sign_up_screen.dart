@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_code_challenge01/constants/gaps.dart';
 import 'package:tiktok_code_challenge01/constants/sizes.dart';
-import 'package:tiktok_code_challenge01/features/authentication/email_screen.dart';
 import 'package:tiktok_code_challenge01/features/authentication/login_screen.dart';
+import 'package:tiktok_code_challenge01/features/authentication/username_screen.dart';
 import 'package:tiktok_code_challenge01/features/authentication/widgets/auth_button.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -16,7 +16,7 @@ class SignUpScreen extends StatelessWidget {
   }
 
   void _onEmailTap(BuildContext context) {
-    context.push(EmailScreen.routeName);
+    context.push(UsernameScreen.routeName);
   }
 
   @override
