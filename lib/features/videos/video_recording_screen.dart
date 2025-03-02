@@ -11,13 +11,25 @@ class VideoRecordingScreen extends StatefulWidget {
   State<VideoRecordingScreen> createState() => _VideoRecordingScreenState();
 }
 
-class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
+class _VideoRecordingScreenState extends State<VideoRecordingScreen>
+    with TickerProviderStateMixin {
   bool _hasPermission = false;
   bool _isSelfieMode = false;
 
   late FlashMode _flashMode;
 
   late CameraController _cameraController;
+  late final AnimationController _buttonAnimationController =
+      AnimationController(vsync: this, duration: Duration(milliseconds: 100));
+  late final AnimationController _progressAnimationController =
+      AnimationController(
+          vsync: this,
+          duration: Duration(seconds: 10),
+          lowerBound: 0.0,
+          upperBound: 1.0);
+
+  late final Animation<double> _buttonAnimation =
+      Tween(begin: 1.0, end: 1.2).animate(_buttonAnimationController);
 
   Future<void> initCamera() async {
     final cameras = await availableCameras();
@@ -67,6 +79,27 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
     super.initState();
 
     initPermissions();
+    _progressAnimationController.addListener(() {
+      setState(() {});
+    });
+
+    _progressAnimationController.addStatusListener(
+      (status) {
+        if (status == AnimationStatus.completed) {
+          _stopRecording();
+        }
+      },
+    );
+  }
+
+  void _startRecording() {
+    _buttonAnimationController.forward();
+    _progressAnimationController.forward();
+  }
+
+  void _stopRecording() {
+    _buttonAnimationController.reverse();
+    _progressAnimationController.reset();
   }
 
   @override
@@ -138,6 +171,38 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
                                 : Colors.white,
                           ),
                         ],
+                      ),
+                    ),
+                    Positioned(
+                      bottom: Sizes.size40,
+                      child: GestureDetector(
+                        onTapDown: (details) => _startRecording(),
+                        onTapUp: (details) => _stopRecording(),
+                        child: ScaleTransition(
+                          scale: _buttonAnimation,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              SizedBox(
+                                width: Sizes.size80 + Sizes.size20,
+                                height: Sizes.size80 + Sizes.size20,
+                                child: CircularProgressIndicator(
+                                  color: Colors.red.shade400,
+                                  strokeWidth: 6,
+                                  value: _progressAnimationController.value,
+                                ),
+                              ),
+                              Container(
+                                width: Sizes.size80,
+                                height: Sizes.size80,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.red.shade400,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     )
                   ],
