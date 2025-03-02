@@ -13,8 +13,9 @@ class VideoRecordingScreen extends StatefulWidget {
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   bool _hasPermission = false;
+  bool _isSelfieMode = false;
 
-  late final CameraController _cameraController;
+  late CameraController _cameraController;
 
   Future<void> initCamera() async {
     final cameras = await availableCameras();
@@ -23,8 +24,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
       return;
     }
 
-    _cameraController =
-        CameraController(cameras.first, ResolutionPreset.ultraHigh);
+    _cameraController = CameraController(
+        cameras[_isSelfieMode ? 1 : 0], ResolutionPreset.ultraHigh);
 
     await _cameraController.initialize();
   }
@@ -45,6 +46,12 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
     }
   }
 
+  Future<void> _toggleSelfieMode() async {
+    _isSelfieMode = !_isSelfieMode;
+    await initCamera();
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -56,32 +63,43 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: (!_hasPermission || !_cameraController.value.isInitialized)
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "초기화중...",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: Sizes.size14,
+      body: SafeArea(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: (!_hasPermission || !_cameraController.value.isInitialized)
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "초기화중...",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: Sizes.size14,
+                      ),
                     ),
-                  ),
-                  Gaps.v20,
-                  CircularProgressIndicator.adaptive(
-                    backgroundColor: Colors.white,
-                  ),
-                ],
-              )
-            : Stack(
-                alignment: Alignment.center,
-                children: [
-                  CameraPreview(_cameraController),
-                ],
-              ),
+                    Gaps.v20,
+                    CircularProgressIndicator.adaptive(
+                      backgroundColor: Colors.white,
+                    ),
+                  ],
+                )
+              : Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CameraPreview(_cameraController),
+                    Positioned(
+                        top: Sizes.size32,
+                        left: Sizes.size10,
+                        child: IconButton(
+                          onPressed: _toggleSelfieMode,
+                          icon: Icon(Icons.cameraswitch),
+                          color: Colors.white,
+                        ))
+                  ],
+                ),
+        ),
       ),
     );
   }
