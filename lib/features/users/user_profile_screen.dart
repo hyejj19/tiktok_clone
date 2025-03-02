@@ -7,7 +7,11 @@ import 'package:tiktok_code_challenge01/features/users/widget/display_user_info.
 import 'package:tiktok_code_challenge01/widgets/persistent_tab_bar.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key});
+  const UserProfileScreen({
+    super.key,
+    required this.username,
+  });
+  final String username;
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -30,7 +34,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
-                title: Text('Eva'),
+                title: Text(widget.username),
                 actions: [
                   IconButton(
                     highlightColor: Colors.transparent,
@@ -56,7 +60,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '@Eva',
+                          "@${widget.username}",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: Sizes.size18,
