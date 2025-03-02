@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tiktok_code_challenge01/constants/gaps.dart';
 import 'package:tiktok_code_challenge01/constants/sizes.dart';
+import 'package:tiktok_code_challenge01/features/videos/video_preview_screen.dart';
 
 class VideoRecordingScreen extends StatefulWidget {
   const VideoRecordingScreen({super.key});
@@ -42,6 +43,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
         cameras[_isSelfieMode ? 1 : 0], ResolutionPreset.ultraHigh);
 
     await _cameraController.initialize();
+    await _cameraController.prepareForVideoRecording(); // for ios
 
     _flashMode = _cameraController.value.flashMode;
   }
@@ -92,14 +94,36 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     );
   }
 
-  void _startRecording() {
+  Future<void> _startRecording() async {
+    if (_cameraController.value.isRecordingVideo) return;
+
+    await _cameraController.startVideoRecording();
+
     _buttonAnimationController.forward();
     _progressAnimationController.forward();
   }
 
-  void _stopRecording() {
+  Future<void> _stopRecording() async {
+    if (!_cameraController.value.isRecordingVideo) return;
+
     _buttonAnimationController.reverse();
     _progressAnimationController.reset();
+
+    final file = await _cameraController.stopVideoRecording();
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VideoPreviewScreen(video: file),
+        ));
+  }
+
+  @override
+  void dispose() {
+    _buttonAnimationController.dispose();
+    _progressAnimationController.dispose();
+    _cameraController.dispose();
+
+    super.dispose();
   }
 
   @override

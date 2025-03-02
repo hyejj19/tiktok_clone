@@ -3,9 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>your usage description here</string>
+	<string>앱에서 비디오 녹화를 위해 카메라를 사용합니다.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>your usage description here</string>
+	<string>앱에서 오디오 녹음을 위해 마이크를 사용합니다.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>비디오를 저장하기 위해 사진 라이브러리에 접근합니다.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>비디오를 저장하기 위해 사진 라이브러리에 접근합니다.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
