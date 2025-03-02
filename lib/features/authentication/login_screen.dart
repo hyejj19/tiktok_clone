@@ -7,6 +7,7 @@ import 'package:tiktok_code_challenge01/features/authentication/widgets/auth_but
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+  static String routeName = '/login';
 
   void _onSignUpTap(BuildContext context) {
     Navigator.of(context).pop();

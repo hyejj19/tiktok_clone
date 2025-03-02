@@ -6,6 +6,7 @@ import 'package:tiktok_code_challenge01/features/authentication/widgets/form_but
 
 class EmailScreen extends StatefulWidget {
   const EmailScreen({super.key});
+  static String routeName = '/email';
 
   @override
   State<EmailScreen> createState() => _EmailScreenState();

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_code_challenge01/constants/sizes.dart';
-import 'package:tiktok_code_challenge01/features/inbox/activity_screen.dart';
-import 'package:tiktok_code_challenge01/features/main_navigation/main_navigation_screen.dart';
+import 'package:tiktok_code_challenge01/route.dart';
 
 void main() {
   runApp(const TikTokApp());
@@ -12,7 +11,8 @@ class TikTokApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'TikTok Clone',
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
@@ -32,7 +32,6 @@ class TikTokApp extends StatelessWidget {
           textSelectionTheme: TextSelectionThemeData(
             cursorColor: const Color(0xFFE9435A),
           )),
-      home: const MainNavigationScreen(),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:tiktok_code_challenge01/features/authentication/widgets/form_but
 
 class UsernameScreen extends StatefulWidget {
   const UsernameScreen({super.key});
+  static String routeName = '/user-name';
 
   @override
   State<UsernameScreen> createState() => _UsernameScreenState();
