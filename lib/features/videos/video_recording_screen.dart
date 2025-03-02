@@ -1,5 +1,8 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:tiktok_code_challenge01/constants/gaps.dart';
+import 'package:tiktok_code_challenge01/constants/sizes.dart';
 
 class VideoRecordingScreen extends StatefulWidget {
   const VideoRecordingScreen({super.key});
@@ -11,6 +14,21 @@ class VideoRecordingScreen extends StatefulWidget {
 class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   bool _hasPermission = false;
 
+  late final CameraController _cameraController;
+
+  Future<void> initCamera() async {
+    final cameras = await availableCameras();
+
+    if (cameras.isEmpty) {
+      return;
+    }
+
+    _cameraController =
+        CameraController(cameras.first, ResolutionPreset.ultraHigh);
+
+    await _cameraController.initialize();
+  }
+
   Future<void> initPermissions() async {
     final cameraPermission = await Permission.camera.request();
     final micPermission = await Permission.microphone.request();
@@ -21,15 +39,16 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
         micPermission.isDenied || micPermission.isPermanentlyDenied;
 
     if (!cameraDenied & !micDenied) {
-      setState(() {
-        _hasPermission = true;
-      });
+      await initCamera();
+      _hasPermission = true;
+      setState(() {});
     }
   }
 
   @override
   void initState() {
     super.initState();
+
     initPermissions();
   }
 
@@ -37,7 +56,33 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Container(),
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: (!_hasPermission || !_cameraController.value.isInitialized)
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "초기화중...",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: Sizes.size14,
+                    ),
+                  ),
+                  Gaps.v20,
+                  CircularProgressIndicator.adaptive(
+                    backgroundColor: Colors.white,
+                  ),
+                ],
+              )
+            : Stack(
+                alignment: Alignment.center,
+                children: [
+                  CameraPreview(_cameraController),
+                ],
+              ),
+      ),
     );
   }
 }
