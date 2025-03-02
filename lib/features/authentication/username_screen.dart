@@ -6,8 +6,10 @@ import 'package:tiktok_code_challenge01/features/authentication/email_screen.dar
 import 'package:tiktok_code_challenge01/features/authentication/widgets/form_button.dart';
 
 class UsernameScreen extends StatefulWidget {
+  static String routeURL = 'username';
+  static String routeName = 'username';
+
   const UsernameScreen({super.key});
-  static String routeName = '/user-name';
 
   @override
   State<UsernameScreen> createState() => _UsernameScreenState();
@@ -37,7 +39,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
   void _onNextTap() {
     if (_username.isEmpty) return;
 
-    context.push(
+    context.pushNamed(
       EmailScreen.routeName,
       extra: EmailScreenArgs(username: _username),
     );

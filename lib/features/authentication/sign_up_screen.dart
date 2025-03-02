@@ -8,15 +8,17 @@ import 'package:tiktok_code_challenge01/features/authentication/username_screen.
 import 'package:tiktok_code_challenge01/features/authentication/widgets/auth_button.dart';
 
 class SignUpScreen extends StatelessWidget {
+  static String routeURL = '/';
+  static String routeName = 'signUp';
+
   const SignUpScreen({super.key});
-  static String routeName = '/';
 
   void _onLoginTap(BuildContext context) {
     context.push(LoginScreen.routeName);
   }
 
   void _onEmailTap(BuildContext context) {
-    context.push(UsernameScreen.routeName);
+    context.pushNamed(UsernameScreen.routeName);
   }
 
   @override
