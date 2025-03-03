@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tiktok_code_challenge01/features/discover/discover_screen.dart';
 import 'package:tiktok_code_challenge01/features/inbox/inbox_screen.dart';
 import 'package:tiktok_code_challenge01/features/users/user_profile_screen.dart';
+import 'package:tiktok_code_challenge01/features/videos/video_timeline_screen.dart';
 import 'package:tiktok_code_challenge01/widgets/nav_tab.dart';
 
 class MainNavigationScreen extends StatefulWidget {
@@ -48,7 +49,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           Offstage(
             offstage: _selectedIndex != 0,
             child: Scaffold(
-              body: Center(child: Text('home screen')),
+              body: VideoTimelineScreen(),
             ),
           ),
           Offstage(
