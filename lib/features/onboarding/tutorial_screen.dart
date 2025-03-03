@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tiktok_code_challenge01/common/widgets/main_navigation/main_navigation_screen.dart';
 import 'package:tiktok_code_challenge01/constants/gaps.dart';
 import 'package:tiktok_code_challenge01/constants/sizes.dart';
-import 'package:tiktok_code_challenge01/features/main_navigation/main_navigation_screen.dart';
 
 enum Direction { right, left }
 
@@ -108,20 +108,15 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ),
         ),
         bottomNavigationBar: BottomAppBar(
-          child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: Sizes.size24,
-                horizontal: Sizes.size24,
-              ),
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 300),
-                opacity: _showingPage == Page.first ? 0 : 1,
-                child: CupertinoButton(
-                  onPressed: _onEnterAppTap,
-                  color: Theme.of(context).primaryColor,
-                  child: const Text('Enter the app!'),
-                ),
-              )),
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 300),
+            opacity: _showingPage == Page.first ? 0 : 1,
+            child: CupertinoButton(
+              onPressed: _onEnterAppTap,
+              color: Theme.of(context).primaryColor,
+              child: const Text('Enter the app!'),
+            ),
+          ),
         ),
       ),
     );
