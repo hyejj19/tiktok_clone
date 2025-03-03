@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_code_challenge01/common/widgets/main_navigation/main_navigation_screen.dart';
 import 'package:tiktok_code_challenge01/features/authentication/login_screen.dart';
@@ -24,10 +25,21 @@ final router = GoRouter(
     GoRoute(
       path: '/:tab(home|discover|inbox|profile)',
       name: MainNavigationScreen.routeName,
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         final tab = state.params['tab'];
-        return MainNavigationScreen(tab: tab!);
-        ;
+        return CustomTransitionPage(
+          transitionDuration: const Duration(milliseconds: 200),
+          child: MainNavigationScreen(tab: tab!),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final position =
+                Tween(begin: Offset(0, 1), end: Offset.zero).animate(animation);
+
+            return SlideTransition(
+              position: position,
+              child: child,
+            );
+          },
+        );
       },
     ),
   ],
