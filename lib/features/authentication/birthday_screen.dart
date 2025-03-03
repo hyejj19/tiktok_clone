@@ -18,6 +18,15 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
 
   DateTime initialDate = DateTime.now();
 
+  void _onNextTap() {
+    context.goNamed(InterestsScreen.routeName);
+  }
+
+  void _setTextFieldDate(DateTime date) {
+    final textDate = date.toString().split(" ").first;
+    _birthdayController.value = TextEditingValue(text: textDate);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -28,15 +37,6 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
   void dispose() {
     _birthdayController.dispose();
     super.dispose();
-  }
-
-  void _onNextTap() {
-    context.pushReplacementNamed(InterestsScreen.routeName);
-  }
-
-  void _setTextFieldDate(DateTime date) {
-    final textDate = date.toString().split(" ").first;
-    _birthdayController.value = TextEditingValue(text: textDate);
   }
 
   @override
