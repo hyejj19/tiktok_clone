@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tiktok_code_challenge01/features/discover/discover_screen.dart';
 import 'package:tiktok_code_challenge01/features/inbox/inbox_screen.dart';
 import 'package:tiktok_code_challenge01/features/users/user_profile_screen.dart';
-import 'package:tiktok_code_challenge01/features/videos/video_timeline_screen.dart';
+import 'package:tiktok_code_challenge01/features/videos/views/video_timeline_screen.dart';
 import 'package:tiktok_code_challenge01/widgets/nav_tab.dart';
 
 class MainNavigationScreen extends StatefulWidget {
