@@ -22,19 +22,19 @@ class VideoConfigData extends InheritedWidget {
   }
 }
 
-class VideoConfig extends StatefulWidget {
+class VideoConfigInheritedWidget extends StatefulWidget {
   final Widget child;
 
-  const VideoConfig({
+  const VideoConfigInheritedWidget({
     super.key,
     required this.child,
   });
 
   @override
-  State<VideoConfig> createState() => _VideoConfigState();
+  State<VideoConfigInheritedWidget> createState() => _VideoConfigState();
 }
 
-class _VideoConfigState extends State<VideoConfig> {
+class _VideoConfigState extends State<VideoConfigInheritedWidget> {
   bool autoMute = false;
 
   void _toggelAutoMute() {

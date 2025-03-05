@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 // deprecated
-class VideoConfig extends ChangeNotifier {
+class VideoConfigChangeNotifier extends ChangeNotifier {
   bool autoMute = true;
 
   void toggleAutoMute() {
@@ -10,4 +10,4 @@ class VideoConfig extends ChangeNotifier {
   }
 }
 
-final videoConfig = VideoConfig();
+final videoConfig = VideoConfigChangeNotifier();
